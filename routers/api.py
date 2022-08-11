@@ -1,9 +1,8 @@
-from email import message
-from re import template
-from flask import Blueprint, render_template
+from flask import Blueprint
+from flask_restful import Api
+from controllers.TestController import TestController
 
-api = Blueprint("api", __name__, static_folder="../static", template_folder="../templates")
+api_bp = Blueprint("api", __name__)
+api = Api(api_bp)
 
-@api.route("/")
-def dashboard():
-    return "Selamat datang di MPS RESTful-API"
+api.add_resource(TestController, "/test")

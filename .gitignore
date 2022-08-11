@@ -131,3 +131,4 @@ dmypy.json
 # Adtional
 public/*
 node_modules
+.vscode
