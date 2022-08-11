@@ -1,12 +1,21 @@
 from flask import jsonify
 from flask_restful import Resource
-
+from models.User import User
 
 class TestController(Resource):
     def get(self):
-        result = {"message": "Selamat datang di test GET"}
-
-        return jsonify(result)
+        try:
+            users = User.query.all()
+            result = {
+                "message": "Selamat datang di test GET",
+                "users": users
+            }
+            
+            return jsonify(result)
+        
+        except Exception as e:
+            print(e)
+            return jsonify({"message": "Ada masalah"})
 
     def post(self):
         result = {"message": "Selamat datang di test POST"}
