@@ -3,13 +3,14 @@ from datetime import datetime
 from dataclasses import dataclass, field
 from enum import Enum
 
-class GenderEnum(Enum):
-
+class GenderEnum(int, Enum):
+    
     p = 0
     l = 1
     
-    def __repr__(self) -> str:
-        return self.name
+    # def __repr__(self):
+    #     return f"{self.name}"
+
 
 @dataclass
 class TingkatAktivitas(db.Model):
@@ -28,3 +29,4 @@ class TingkatAktivitas(db.Model):
         db.Float(precision=3, decimal_return_scale=2), nullable=False
     )
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    

@@ -7,6 +7,8 @@ class TingkatAktivitasController(Resource):
         try:
             aktivitas = TingkatAktivitas.query.all()
             
+            print(aktivitas)
+            
             result = {
                 "message": "Selamat datang di tingkat aktivitas get",
                 "aktivitas": aktivitas
