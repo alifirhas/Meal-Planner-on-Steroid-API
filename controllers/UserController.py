@@ -1,8 +1,9 @@
 from flask import jsonify
 from flask_restful import Resource
 from models.User import User
+from models.TingkatAktivitas import TingkatAktivitas
 
-class TestController(Resource):
+class UserController(Resource):
     def get(self):
         try:
             users = User.query.all()
