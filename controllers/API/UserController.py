@@ -1,18 +1,15 @@
+import marshal
 from flask import jsonify
-from flask_restful import Resource
-from models.User import User
-from models.TingkatAktivitas import TingkatAktivitas
+from flask_restx import Resource, marshal_with
+from models.User import User, user_fields
 
 class UserController(Resource):
+    @marshal_with(user_fields, envelope='users')
     def get(self):
-        try:
-            users = User.query.all()
-            result = {
-                "message": "Selamat datang di test GET",
-                "users": users
-            }
-            
-            return jsonify(result)
+        try:      
+            users = User().query.all()
+                
+            return users
         
         except Exception as e:
             print(e)

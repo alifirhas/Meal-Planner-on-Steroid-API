@@ -1,32 +1,37 @@
 from . import db
 from datetime import datetime
-from dataclasses import dataclass, field
-from enum import Enum
+from flask_restx import fields
 
-class GenderEnum(int, Enum):
-    
-    p = 0
-    l = 1
-    
-    # def __repr__(self):
-    #     return f"{self.name}"
+aktivitas_fields = {
+    "id": fields.Integer,
+    "name": fields.String,
+    "nilai_aktivitas": fields.Float,
+    "gender": fields.String,
+    "date_created": fields.DateTime,
+}
 
-
-@dataclass
 class TingkatAktivitas(db.Model):
     __tablename__ = "tingkat_aktivitas"
 
-    id: int = field(init=False)
+    id: int
     name: str
-    gender: GenderEnum
+    gender: str
     nilai_aktivitas: float
-    date_created: datetime
+    date_created: str
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    gender = db.Column(db.Enum(GenderEnum), nullable=False)
+    gender = db.Column(db.String(2), db.ForeignKey("gender.name", ondelete='SET NULL'))
     nilai_aktivitas = db.Column(
         db.Float(precision=3, decimal_return_scale=2), nullable=False
     )
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
+
+    user = db.relationship("User", backref="tingkat_aktivitas")
+
+    def __repr__(self):
+        return f"TingkatAktivitas(id={self.id}, name={self.name}, gender={self.gender} date_created={self.date_created})"
     
+    def json(self):
+        data = {"id": self.id, "name": self.name, "gender": self.gender, "date_crated": self.date_created}
+        return data

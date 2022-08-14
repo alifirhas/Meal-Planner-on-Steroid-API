@@ -1,20 +1,16 @@
 from flask import jsonify
-from flask_restful import Resource
-from models.TingkatAktivitas import TingkatAktivitas, GenderEnum
+from flask_restx import Resource, marshal_with
+from models.TingkatAktivitas import TingkatAktivitas, aktivitas_fields
+from models.Gender import Gender
 
 class TingkatAktivitasController(Resource):
+    @marshal_with(aktivitas_fields)
     def get(self):
         try:
             aktivitas = TingkatAktivitas.query.all()
+            gender = Gender.query.all()
             
-            print(aktivitas)
-            
-            result = {
-                "message": "Selamat datang di tingkat aktivitas get",
-                "aktivitas": aktivitas
-            }
-            
-            return jsonify(result)
+            return aktivitas
         
         except Exception as e:
             print(e)

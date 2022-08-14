@@ -1,7 +1,7 @@
 from flask import Blueprint
-from flask_restful import Api
-from controllers.UserController import UserController
-from controllers.TingkatAktivitasController import TingkatAktivitasController
+from flask_restx import Api
+from controllers.API.UserController import UserController
+from controllers.API.TingkatAktivitasController import TingkatAktivitasController
 
 api_bp = Blueprint("api", __name__)
 api = Api(api_bp)
